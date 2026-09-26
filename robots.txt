@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://avinash-1994.github.io/mohan-dental-care/sitemap.xml
