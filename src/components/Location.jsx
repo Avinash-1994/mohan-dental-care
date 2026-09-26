@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useScrollReveal } from '../utils';
+import { useScrollReveal, getAssetUrl } from '../utils';
 
 export default function Location() {
   const [viewMode, setViewMode] = useState('office');
@@ -138,7 +138,7 @@ export default function Location() {
             {viewMode === 'office' ? (
               <div className="rounded-2xl overflow-hidden aspect-[4/3] relative bg-[#EEF1F1] group">
                 <img
-                  src="public/images/office.png"
+                  src={getAssetUrl('images/office.png')}
                   alt="Mohan Dental Care Clinic Office & Consultation Room"
                   className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                 />

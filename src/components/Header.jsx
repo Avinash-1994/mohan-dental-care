@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getAssetUrl } from '../utils';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home', page: 'home' },
@@ -162,7 +163,7 @@ export default function Header({ activePage, setActivePage }) {
           {/* Brand */}
           <button onClick={() => handleNavClick('home', '#home')} className="flex items-center gap-2 group py-1">
             <img
-              src="public/images/logo.webp"
+              src={getAssetUrl('images/logo.webp')}
               alt="Mohan Dental Care"
               className="h-10 sm:h-12 max-h-[48px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
             />
@@ -249,7 +250,7 @@ export default function Header({ activePage, setActivePage }) {
         <div className="flex items-center justify-between px-6 py-5 border-b border-[#E5E8E8]">
           <div className="flex items-center">
             <img
-              src="public/images/logo.webp"
+              src={getAssetUrl('images/logo.webp')}
               alt="Mohan Dental Care"
               className="h-10 sm:h-11 w-auto object-contain"
             />

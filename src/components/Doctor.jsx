@@ -1,13 +1,13 @@
-import { useScrollReveal, useTilt } from '../utils';
+import { useScrollReveal, useTilt, getAssetUrl } from '../utils';
 
 // ─── Gallery items with real images ─────────────────────────────────────────
 const GALLERY = [
-  { label: 'Doctor Consultation Office', img: 'public/images/office.png' },
-  { label: 'Reception & Waiting Lounge', img: 'public/images/reception.png' },
-  { label: 'Treatment Chair & Operatory', img: 'public/images/treatment.png' },
-  { label: 'Digital RVG X-Ray Room', img: 'public/images/xray.png' },
-  { label: 'Sterilization & Autoclave', img: 'public/images/sterilization.png' },
-  { label: 'Consultation Desk', img: 'public/images/office.png' },
+  { label: 'Doctor Consultation Office', img: 'images/office.png' },
+  { label: 'Reception & Waiting Lounge', img: 'images/reception.png' },
+  { label: 'Treatment Chair & Operatory', img: 'images/treatment.png' },
+  { label: 'Digital RVG X-Ray Room', img: 'images/xray.png' },
+  { label: 'Sterilization & Autoclave', img: 'images/sterilization.png' },
+  { label: 'Consultation Desk', img: 'images/office.png' },
 ];
 
 // ─── Doctor card with real photo ─────────────────────────────────────────────
@@ -24,7 +24,7 @@ function DoctorCard() {
         {/* Real doctor photo */}
         <div className="rounded-[18px] overflow-hidden aspect-[4/5] relative bg-gradient-to-b from-[#133A5B] to-[#03213B]">
           <img
-            src="public/images/dr_p_r_rajwade.webp"
+            src={getAssetUrl('images/dr_p_r_rajwade.webp')}
             alt="Dr. P. R. Rajwade, BDS"
             className="w-full h-full object-cover object-top"
           />
@@ -89,7 +89,7 @@ export function DoctorTeaser({ setActivePage }) {
               visible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.98] translate-y-4'
             }`}>
               <img
-                src="public/images/office.png"
+                src={getAssetUrl('images/office.png')}
                 alt="Dr. P. R. Rajwade at Mohan Dental Care Clinic Office"
                 className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-400 ease-out"
               />
@@ -240,7 +240,7 @@ export function AboutPage() {
       <div className="bg-[#EEF1F1]/60 py-16 relative overflow-hidden border-b border-[#E5E8E8]">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F1F8] border border-[#123b5d]/20 text-[#123b5d] text-xs font-bold tracking-[0.08em] uppercase mb-4">
-            <img src="public/images/logo.webp" alt="Logo" className="w-4 h-4 object-contain" />
+            <img src={getAssetUrl('images/logo.webp')} alt="Logo" className="w-4 h-4 object-contain" />
             MEET THE DOCTOR &amp; CLINIC
           </div>
           <h1 className="font-display font-bold text-[clamp(2rem,3.6vw,2.9rem)] text-[#03213B] mb-4">About Mohan Dental Care</h1>
@@ -375,7 +375,7 @@ export function AboutPage() {
             {GALLERY.map(({ label, img }) => (
               <div key={label} className="card-3d rounded-2xl overflow-hidden aspect-[4/3] relative cursor-default group shadow-card border border-[#E4E5E4]">
                 <img
-                  src={img}
+                  src={getAssetUrl(img)}
                   alt={label}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

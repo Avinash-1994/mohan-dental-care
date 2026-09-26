@@ -1,10 +1,10 @@
-import { useScrollReveal } from '../utils';
+import { useScrollReveal, getAssetUrl } from '../utils';
 
 const TECH_ITEMS = [
   {
     title: 'Digital X-Ray (RVG)',
     desc: 'Instant chairside imaging with significantly reduced radiation exposure, enabling fast, accurate diagnosis during your visit.',
-    img: 'public/images/xray.png',
+    img: 'images/xray.png',
     icon: (
       <svg className="w-5 h-5 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -16,7 +16,7 @@ const TECH_ITEMS = [
   {
     title: 'Modern Dental Equipment',
     desc: 'High-precision rotary endodontics and premium dental restorative materials including Zirconia and EMAX for natural aesthetics.',
-    img: 'public/images/treatment.png',
+    img: 'images/treatment.png',
     icon: (
       <svg className="w-5 h-5 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2C8 2 5 5 5 9c0 3 2 6 3 9 1 3 2 4 4 4s3-1 4-4c1-3 3-6 3-9 0-4-3-7-7-7z" />
@@ -26,7 +26,7 @@ const TECH_ITEMS = [
   {
     title: 'Advanced Sterilization',
     desc: 'Strict multi-tier hospital-grade autoclaving and sanitized operatory protocols ensuring 100% patient safety and hygiene.',
-    img: 'public/images/sterilization.png',
+    img: 'images/sterilization.png',
     icon: (
       <svg className="w-5 h-5 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -36,7 +36,7 @@ const TECH_ITEMS = [
   {
     title: 'Comfort-focused Treatment',
     desc: 'Ergonomic treatment chairs, gentle ultrasonic plaque scaling, and an anxiety-free environment suited for patients of all ages.',
-    img: 'public/images/reception.png',
+    img: 'images/reception.png',
     icon: (
       <svg className="w-5 h-5 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -45,7 +45,7 @@ const TECH_ITEMS = [
   },
 ];
 
-export default function Technology({ isAbout = false }) {
+export default function Technology({ _isAbout = false }) {
   const [headRef, headVisible] = useScrollReveal();
 
   return (
@@ -82,7 +82,7 @@ export default function Technology({ isAbout = false }) {
               {/* Image Preview */}
               <div className="relative h-44 overflow-hidden bg-[#EEF1F1]">
                 <img
-                  src={item.img}
+                  src={getAssetUrl(item.img)}
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                 />

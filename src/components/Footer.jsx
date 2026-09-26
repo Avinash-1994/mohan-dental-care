@@ -1,3 +1,5 @@
+import { getAssetUrl } from '../utils';
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -12,7 +14,7 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <div className="mb-5 inline-block bg-white p-3 rounded-2xl shadow-sm border border-[#E5E8E8]">
               <img
-                src="public/images/logo.webp"
+                src={getAssetUrl('images/logo.webp')}
                 alt="Mohan Dental Care"
                 className="h-11 w-auto object-contain"
               />

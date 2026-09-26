@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useScrollReveal } from '../utils';
+import { useScrollReveal, getAssetUrl } from '../utils';
 
 export default function CompareSlider() {
   const [pos, setPos] = useState(50);
@@ -50,7 +50,7 @@ export default function CompareSlider() {
                 {/* After image (full width background) */}
                 <div className="absolute inset-0">
                   <img
-                    src="public/images/smile-compare.png"
+                    src={getAssetUrl('images/smile-compare.png')}
                     alt="After smile makeover"
                     className="w-full h-full object-cover"
                     style={{ objectPosition: 'right center' }}
@@ -63,7 +63,7 @@ export default function CompareSlider() {
                 {/* Before image (clipped to slider position) */}
                 <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
                   <img
-                    src="public/images/smile-compare.png"
+                    src={getAssetUrl('images/smile-compare.png')}
                     alt="Before smile makeover"
                     className="absolute inset-0 h-full object-cover"
                     style={{ width: `${10000 / pos}%`, objectPosition: 'left center', maxWidth: 'none' }}

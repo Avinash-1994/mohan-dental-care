@@ -1,8 +1,4 @@
-import { useState } from 'react';
-
 export default function FAB() {
-  const [open, setOpen] = useState(false);
-
   const handleBookClick = (e) => {
     e.preventDefault();
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });

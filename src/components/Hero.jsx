@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
+import { getAssetUrl } from '../utils';
 
-export default function Hero({ setActivePage }) {
+export default function Hero({ _setActivePage }) {
   const heroRef = useRef(null);
   const cardRef = useRef(null);
   const targetRef = useRef({ x: 0, y: 0, rotX: 0, rotY: 0 });
@@ -182,7 +183,7 @@ export default function Hero({ setActivePage }) {
               <div className="group bg-white rounded-[24px] sm:rounded-[28px] p-3 shadow-[0_20px_50px_-15px_rgba(3,33,59,0.12)] border border-[#E5E8E8] relative transition-shadow duration-300">
                 <div className="rounded-[20px] overflow-hidden aspect-[4/5] bg-gradient-to-b from-[#133A5B] to-[#03213B] relative">
                   <img
-                    src="public/images/dr_p_r_rajwade.webp"
+                    src={getAssetUrl('images/dr_p_r_rajwade.webp')}
                     alt="Dr. P. R. Rajwade, BDS"
                     className="w-full h-full object-cover object-top transition-transform duration-400 ease-out group-hover:scale-[1.01] group-hover:rotate-[0.5deg]"
                   />
