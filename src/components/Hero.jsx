@@ -1,179 +1,231 @@
+import { useRef, useEffect } from 'react';
+
 export default function Hero({ setActivePage }) {
-  const scrollToBooking = () => {
+  const heroRef = useRef(null);
+  const cardRef = useRef(null);
+  const targetRef = useRef({ x: 0, y: 0, rotX: 0, rotY: 0 });
+  const currentRef = useRef({ x: 0, y: 0, rotX: 0, rotY: 0 });
+  const rafId = useRef(null);
+
+  const scrollToBooking = (e) => {
+    e.preventDefault();
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleMouseMove = (e) => {
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (!cardRef.current || !heroRef.current) return;
+
+    const cardRect = cardRef.current.getBoundingClientRect();
+    const cardCenterX = cardRect.left + cardRect.width / 2;
+    const cardCenterY = cardRect.top + cardRect.height / 2;
+
+    const deltaX = e.clientX - cardCenterX;
+    const deltaY = e.clientY - cardCenterY;
+
+    const heroRect = heroRef.current.getBoundingClientRect();
+    const halfHeroW = heroRect.width / 2 || 1;
+    const halfHeroH = heroRect.height / 2 || 1;
+
+    const dist = Math.hypot(deltaX, deltaY);
+    const maxDist = Math.hypot(halfHeroW, halfHeroH) || 1;
+    // Proximity factor: cursor close to image has slightly stronger responsiveness (0.6 to 1.0)
+    const proximity = Math.max(0.6, 1 - (dist / maxDist) * 0.4);
+
+    // Normalized ratios between -1 and 1
+    const ratioX = Math.max(-1, Math.min(1, deltaX / (halfHeroW * 0.75)));
+    const ratioY = Math.max(-1, Math.min(1, deltaY / (halfHeroH * 0.75)));
+
+    // Movement within ±8px (moves with cursor direction: left->left, right->right, up->up, down->down)
+    targetRef.current.x = Number((ratioX * 8 * proximity).toFixed(2));
+    targetRef.current.y = Number((ratioY * 8 * proximity).toFixed(2));
+
+    // Subtle 3D tilt within ±1.2deg
+    targetRef.current.rotY = Number((-ratioX * 1.2 * proximity).toFixed(2));
+    targetRef.current.rotX = Number((ratioY * 1.0 * proximity).toFixed(2));
+  };
+
+  const handleMouseLeave = () => {
+    targetRef.current = { x: 0, y: 0, rotX: 0, rotY: 0 };
+  };
+
+  useEffect(() => {
+    let isRunning = true;
+
+    const animate = () => {
+      if (!isRunning) return;
+
+      const current = currentRef.current;
+      const target = targetRef.current;
+
+      // Smooth lerp interpolation factor
+      const lerp = 0.08;
+      current.x += (target.x - current.x) * lerp;
+      current.y += (target.y - current.y) * lerp;
+      current.rotX += (target.rotX - current.rotX) * lerp;
+      current.rotY += (target.rotY - current.rotY) * lerp;
+
+      if (cardRef.current) {
+        cardRef.current.style.transform = `translate3d(${current.x.toFixed(2)}px, ${current.y.toFixed(2)}px, 0) rotateX(${current.rotX.toFixed(2)}deg) rotateY(${current.rotY.toFixed(2)}deg)`;
+      }
+
+      rafId.current = requestAnimationFrame(animate);
+    };
+
+    rafId.current = requestAnimationFrame(animate);
+
+    return () => {
+      isRunning = false;
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
+  }, []);
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-[68px] sm:pt-[76px] overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #fbeee1 0%, #fdf6ef 55%, #fffdfb 100%)' }}
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative min-h-[90vh] lg:min-h-screen flex items-center pt-[76px] pb-12 sm:pb-20 overflow-hidden bg-[#F8FAFA]"
     >
-      {/* Glow orbs */}
-      <div className="glow-orb w-[500px] h-[500px] bg-accent-400 top-10 right-[-100px]" />
-      <div className="glow-orb w-[400px] h-[400px] bg-purple-400 bottom-10 left-[-80px]" style={{ animationDelay: '3s' }} />
+      {/* Subtle background ambient glow */}
+      <div className="absolute top-1/4 right-0 w-[480px] h-[480px] bg-[#E8F1F8] rounded-full blur-[100px] pointer-events-none opacity-60" />
+      <div className="absolute bottom-10 left-[-100px] w-[380px] h-[380px] bg-[#EEF1F1] rounded-full blur-[90px] pointer-events-none opacity-70" />
 
-      {/* 3D perspective grid */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(91,79,224,1) 1px, transparent 1px), linear-gradient(90deg, rgba(91,79,224,1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-          transform: 'perspective(800px) rotateX(8deg)',
-          transformOrigin: 'center top',
-        }}
-      />
-
-      <div className="max-w-[1180px] mx-auto px-4 sm:px-6 py-12 sm:py-20 w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-        {/* ── Left: Text content ── */}
-        <div className="order-2 lg:order-1">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-500/10 text-accent-600 text-xs font-bold tracking-[0.08em] uppercase mb-6">
-            <span className="w-2 h-2 rounded-full bg-accent-500 animate-pulse" />
-            Surajpur's Trusted Dental Clinic
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-8 sm:py-16 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
+        
+        {/* ── Left: Text content (7 cols) ── */}
+        <div className="lg:col-span-7 text-left">
+          {/* Eyebrow */}
+          <div className="animate-hero-eyebrow inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F1F8] border border-[#123b5d]/20 text-[#123b5d] text-xs font-bold tracking-[0.08em] uppercase mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#123b5d]" />
+            MODERN DENTISTRY • PERSONALIZED CARE
           </div>
 
-          <p className="text-ink-700 font-semibold text-[0.95rem] mb-3">
-            Under the care of <span className="text-ink-950 font-bold">Dr. P. R. Rajwade, BDS</span>
-          </p>
-
-          <h1 className="font-display font-extrabold text-[clamp(2.2rem,4.5vw,3.5rem)] text-ink-950 leading-[1.1] mb-6">
-            Complete Dental Care,<br />
-            <span className="gradient-text">From a Filling to a Full Makeover</span>
+          <h1 className="animate-hero-heading font-display font-bold text-[clamp(2.1rem,4.2vw,3.4rem)] text-[#03213B] leading-[1.14] mb-5 tracking-tight">
+            Complete Dental Care.<br />
+            <span className="gradient-text">From a Filling to a Full Smile Makeover.</span>
           </h1>
 
-          <p className="text-ink-700 text-[1.05rem] leading-relaxed max-w-[46ch] mb-8">
-            Mohan Dental Care treats everything from routine cleanings and root canals to wisdom tooth surgery,
-            braces, crowns and same-day digital X-rays — all on M.G. Road, Surajpur.
+          <p className="animate-hero-desc text-[#66737F] text-[1.02rem] sm:text-[1.1rem] leading-relaxed max-w-[54ch] mb-8">
+            Under the care of <strong className="text-[#03213B]">Dr. P. R. Rajwade, BDS</strong>. Dedicated to gentle, comprehensive dentistry with modern digital imaging and comfortable chairside treatments in Surajpur.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-4 mb-8">
+          {/* Primary & Secondary CTAs */}
+          <div className="animate-hero-cta flex flex-wrap items-center gap-3.5 mb-10">
+            <a
+              href="#booking"
+              onClick={scrollToBooking}
+              className="btn-shimmer flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#123b5d] hover:bg-[#0c2a44] text-white font-bold text-[0.96rem] shadow-[0_10px_25px_-6px_rgba(18,59,93,0.45)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3.5" y="5" width="17" height="15" rx="2.4" />
+                <line x1="3.5" y1="9.5" x2="20.5" y2="9.5" />
+                <line x1="8" y1="3" x2="8" y2="7" />
+                <line x1="16" y1="3" x2="16" y2="7" />
+              </svg>
+              Book Appointment
+            </a>
+
             <a
               href="tel:+918839557607"
-              className="btn-shimmer flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-ink-950 text-white font-bold text-[0.97rem] shadow-[0_14px_30px_-14px_rgba(21,19,15,0.55)] hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(21,19,15,0.6)] transition-all duration-200"
+              className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-[#03213B] text-[#03213B] font-bold text-[0.96rem] hover:bg-[#03213B] hover:text-white active:scale-[0.98] transition-all duration-200"
             >
-              {/* Phone SVG */}
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M7 3.5c-2 0-3.5 1.8-3.2 3.7C4.7 14.6 9.4 19.3 16.8 20.2c1.9.3 3.7-1.2 3.7-3.2v-1.8c0-.6-.4-1.1-1-1.3l-3.4-1.1c-.5-.2-1.1 0-1.4.4l-1 1.3c-2.3-1.1-4.1-2.9-5.2-5.2l1.3-1c.4-.3.6-.9.4-1.4L9.1 3.5c-.2-.6-.7-1-1.3-1H7z"/>
+              <svg className="w-4 h-4 text-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 3.5c-2 0-3.5 1.8-3.2 3.7C4.7 14.6 9.4 19.3 16.8 20.2c1.9.3 3.7-1.2 3.7-3.2v-1.8c0-.6-.4-1.1-1-1.3l-3.4-1.1c-.5-.2-1.1 0-1.4.4l-1 1.3c-2.3-1.1-4.1-2.9-5.2-5.2l1.3-1c.4-.3.6-.9.4-1.4L9.1 3.5c-.2-.6-.7-1-1.3-1H7z" />
               </svg>
-              Call Now
-            </a>
-            <a
-              href="https://wa.me/918839557607"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2.5 px-7 py-3.5 rounded-full border-2 border-[#ece5db] text-ink-950 font-bold text-[0.97rem] hover:border-teal-500 hover:bg-teal-500/5 transition-all duration-200"
-            >
-              <span className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center">
-                {/* WhatsApp SVG */}
-                <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.3A9 9 0 1 0 12 3z"/>
-                  <path d="M8.3 8.4c.2-.5.4-.5.7-.5h.5c.2 0 .4 0 .6.4.2.5.7 1.7.8 1.8.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.8 2.1 1.2 1 1.9 1.3 2.2 1.4.3.2.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.6.8 1.9 1 .3.1.5.2.5.3.1.3.1.8-.1 1.3-.3.5-1.4 1.2-2 1.2-.5.1-1.1.1-3.5-.8-2.9-1.2-4.8-4.1-4.9-4.3-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4z" fill="white" stroke="none"/>
-                </svg>
-              </span>
-              WhatsApp Us
+              Call Clinic
             </a>
           </div>
 
-          {/* Meta */}
-          <div className="flex flex-wrap gap-5 text-[0.87rem] text-ink-700 font-semibold">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-              Open Daily: 9 AM – 8 PM
-            </span>
-            <span className="flex items-center gap-2">
-              {/* Pin SVG */}
-              <svg className="w-4 h-4 text-accent-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 21s7-6.3 7-11.5S16.4 3 12 3 5 5.4 5 9.5 12 21 12 21z"/>
-                <circle cx="12" cy="9.5" r="2.6"/>
-              </svg>
-              M.G. Road, Surajpur
-            </span>
-          </div>
-        </div>
-
-        {/* ── Right: 3D floating doctor card ── */}
-        <div className="order-1 lg:order-2 flex justify-center">
-          <div className="relative" style={{ perspective: '800px' }}>
-            {/* Floating card */}
-            <div className="hero-card-3d bg-white rounded-[28px] p-3 sm:p-4 shadow-3d w-full max-w-[340px] sm:max-w-[370px] relative">
-              {/* Top chip */}
-              <div className="absolute -top-4 left-6 bg-ink-950 text-white rounded-full px-4 py-2.5 flex items-center gap-2 text-xs font-bold shadow-[0_12px_30px_-10px_rgba(21,19,15,0.5)] z-10">
-                <svg className="w-4 h-4 text-accent-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 3l7 3v6c0 4.8-3 8-7 9-4-1-7-4.2-7-9V6z"/>
-                </svg>
-                Complete Oral Care
-              </div>
-
-              {/* Real doctor photo */}
-              <div className="rounded-[20px] overflow-hidden aspect-[4/5] bg-gradient-to-b from-accent-600 to-ink-950 relative">
-                <img
-                  src="/images/doctor.png"
-                  alt="Dr. P. R. Rajwade, BDS"
-                  className="w-full h-full object-cover"
-                />
-                {/* Name overlay */}
-                <div className="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-ink-950/90 to-transparent">
-                  <p className="text-white font-display font-bold text-base leading-tight">Dr. P. R. Rajwade</p>
-                  <p className="text-accent-300 text-xs font-semibold">BDS — Govt. Dental College, Raipur</p>
-                </div>
-              </div>
-
-              {/* Badge 1 — hidden on mobile to prevent overflow */}
-              <div className="badge-float-1 hidden sm:flex absolute -left-10 top-1/3 bg-white rounded-2xl px-4 py-3 shadow-card items-center gap-3 border border-[#ece5db]">
-                <div className="w-9 h-9 rounded-xl bg-accent-500/10 flex items-center justify-center flex-shrink-0">
-                  {/* Calendar SVG */}
-                  <svg className="w-5 h-5 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3.5" y="5" width="17" height="15" rx="2.4"/>
-                    <line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/>
-                    <line x1="8" y1="3" x2="8" y2="7"/>
-                    <line x1="16" y1="3" x2="16" y2="7"/>
+          {/* Trust Indicators */}
+          <div className="animate-hero-trust pt-6 border-t border-[#E5E8E8] flex flex-wrap items-center gap-6 sm:gap-10">
+            <div className="flex items-center gap-2.5">
+              <div className="flex text-[#BFA88F]">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                </div>
-                <div>
-                  <p className="text-[0.62rem] text-ink-700 font-bold uppercase tracking-wide">Qualification</p>
-                  <p className="text-[0.84rem] font-bold text-ink-950">BDS, Govt. College</p>
-                </div>
+                ))}
               </div>
-
-              {/* Badge 2 — hidden on mobile to prevent overflow */}
-              <div className="badge-float-2 hidden sm:flex absolute -right-8 bottom-[15%] bg-white rounded-2xl px-4 py-3 shadow-card items-center gap-3 border border-[#ece5db]">
-                <div className="w-9 h-9 rounded-xl bg-accent-500/10 flex items-center justify-center flex-shrink-0">
-                  {/* Badge/shield SVG */}
-                  <svg className="w-5 h-5 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3l7 3v6c0 4.8-3 8-7 9-4-1-7-4.2-7-9V6z"/>
-                    <path d="M9 12l2 2 4-4"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-[0.62rem] text-ink-700 font-bold uppercase tracking-wide">Registration</p>
-                  <p className="text-[0.84rem] font-bold text-ink-950">CGDC/G/23/3989</p>
-                </div>
-              </div>
+              <span className="text-xs sm:text-sm font-bold text-[#03213B]">4.9 Google Rating</span>
             </div>
 
-            {/* Stats row */}
-            <div className="flex gap-2 sm:gap-3 mt-5 sm:mt-6 justify-center">
-              {[
-                { num: '12+', label: 'Services' },
-                { num: '9AM', label: 'Opens Daily' },
-                { num: '2', label: 'Phone Lines' },
-              ].map(({ num, label }) => (
-                <div key={label} className="bg-white rounded-2xl px-5 py-3 shadow-card text-center flex-1 border border-[#ece5db]">
-                  <p className="font-display font-bold text-lg text-ink-950">{num}</p>
-                  <p className="text-[0.7rem] text-ink-700 font-semibold">{label}</p>
-                </div>
-              ))}
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-[#123b5d]" />
+              <span className="text-xs sm:text-sm font-bold text-[#03213B]">500+ Patients</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-[#BFA88F]" />
+              <span className="text-xs sm:text-sm font-bold text-[#03213B]">10+ Years Experience</span>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 30C240 60 480 0 720 30C960 60 1200 0 1440 30V60H0V30Z" fill="#fffdfb"/>
-        </svg>
+        {/* ── Right: Premium Doctor Card (5 cols) ── */}
+        <div className="lg:col-span-5 flex justify-center animate-hero-image">
+          {/* Parallax + Tilt interactive container */}
+          <div
+            ref={cardRef}
+            className="relative w-full max-w-[360px] sm:max-w-[400px]"
+            style={{
+              transformStyle: 'preserve-3d',
+              willChange: 'transform',
+            }}
+          >
+            {/* Organic continuous floating container */}
+            <div className="hero-organic-float w-full">
+              {/* Main Rounded Image Container */}
+              <div className="group bg-white rounded-[24px] sm:rounded-[28px] p-3 shadow-[0_20px_50px_-15px_rgba(3,33,59,0.12)] border border-[#E5E8E8] relative transition-shadow duration-300">
+                <div className="rounded-[20px] overflow-hidden aspect-[4/5] bg-gradient-to-b from-[#133A5B] to-[#03213B] relative">
+                  <img
+                    src="public/images/dr_p_r_rajwade.webp"
+                    alt="Dr. P. R. Rajwade, BDS"
+                    className="w-full h-full object-cover object-top transition-transform duration-400 ease-out group-hover:scale-[1.01] group-hover:rotate-[0.5deg]"
+                  />
+                  
+                  {/* Clean Bottom Overlay */}
+                  <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 bg-gradient-to-t from-[#03213B] via-[#03213B]/80 to-transparent">
+                    <p className="text-white font-display font-bold text-base sm:text-lg leading-tight">Dr. P. R. Rajwade</p>
+                    <p className="text-[#BFA88F] text-xs font-medium">B.D.S. — Govt. Dental College, Raipur</p>
+                  </div>
+                </div>
+
+                {/* Floating Card 1: Experience & Trust */}
+                <div className="floating-badge-1 hidden sm:flex absolute -left-6 bottom-16 bg-white/95 backdrop-blur-md rounded-2xl px-4 py-3 shadow-[0_12px_30px_-8px_rgba(3,33,59,0.15)] items-center gap-3 border border-[#E5E8E8]">
+                  <div className="w-9 h-9 rounded-xl bg-[#E8F1F8] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 3l7 3v6c0 4.8-3 8-7 9-4-1-7-4.2-7-9V6z" />
+                      <path d="M9 12l2 2 4-4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[0.65rem] text-[#66737F] font-bold uppercase tracking-wider">Experience</p>
+                    <p className="text-[0.88rem] font-bold text-[#03213B]">10+ Years Clinical Care</p>
+                  </div>
+                </div>
+
+                {/* Floating Card 2: Rating & Smiles */}
+                <div className="floating-badge-2 hidden sm:flex absolute -right-6 top-12 bg-white/95 backdrop-blur-md rounded-2xl px-4 py-3 shadow-[0_12px_30px_-8px_rgba(3,33,59,0.15)] items-center gap-3 border border-[#E5E8E8]">
+                  <div className="w-9 h-9 rounded-xl bg-[#F8FAFA] flex items-center justify-center flex-shrink-0 text-[#BFA88F]">
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[0.65rem] text-[#66737F] font-bold uppercase tracking-wider">Google Verified</p>
+                    <p className="text-[0.88rem] font-bold text-[#03213B]">4.9 ★ Rating</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );

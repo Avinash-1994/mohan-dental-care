@@ -33,12 +33,12 @@ function ServiceCard({ svc, delay = 0, onClick }) {
       <div
         {...tilt}
         onClick={onClick}
-        className="svc-card-3d bg-white border border-[#ece5db] border-t-4 border-t-accent-500 rounded-2xl p-5 sm:p-6 shadow-card h-full cursor-pointer group active:scale-[0.98] transition-transform"
+        className="svc-card-3d bg-white border border-[#E4E5E4] border-t-4 border-t-accent-500 rounded-2xl p-5 sm:p-6 shadow-card h-full cursor-pointer group active:scale-[0.98] transition-transform"
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Icon + badge row */}
         <div className="flex items-start justify-between mb-4 gap-2">
-          <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] bg-gradient-to-br ${svc.color} flex items-center justify-center shadow-[0_6px_16px_-6px_rgba(91,79,224,0.4)] group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] bg-gradient-to-br ${svc.color} flex items-center justify-center shadow-[0_6px_16px_-6px_rgba(91,79,224,0.4)] group-hover:scale-105 transition-transform duration-250 ease-out flex-shrink-0`}>
             <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 8c-4.6 0-8.2 2.6-9.4 6-.9 2.4-.2 4.7.7 7.1.9 2.5 1.1 5.2 1.7 7.9.5 2.1 1.2 4.9 2.6 4.9 1.3 0 1.8-2.6 2.3-4.9.4-1.9 1-3.1 2.1-3.1s1.7 1.2 2.1 3.1c.5 2.3 1 4.9 2.3 4.9 1.4 0 2.1-2.8 2.6-4.9.6-2.7.8-5.4 1.7-7.9.9-2.4 1.6-4.7.7-7.1-1.2-3.4-4.8-6-9.4-6z"/>
             </svg>
@@ -59,9 +59,9 @@ function ServiceCard({ svc, delay = 0, onClick }) {
           {svc.duration}
         </div>
 
-        <div className="flex items-center gap-1.5 text-accent-600 text-xs font-bold group-hover:gap-2.5 transition-all">
+        <div className="flex items-center gap-1.5 text-accent-600 text-xs font-bold transition-all">
           <span>Tap for full details</span>
-          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+          <svg className="w-3.5 h-3.5 group-hover:translate-x-[3px] transition-transform duration-250 ease-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </div>
@@ -133,7 +133,7 @@ function ServiceModal({ svc, onClose }) {
               { icon: <circle cx="12" cy="12" r="8.5"/>, path: <path d="M12 7.5V12l3 2"/>, label: 'Duration', val: svc.duration },
               { icon: null, path: null, label: 'Frequency', val: svc.freq, isCalendar: true },
             ].map(({ label, val, isCalendar }) => (
-              <div key={label} className="flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-2xl bg-[#f3f1f7] border border-[#ece5db] min-w-0 max-w-full">
+              <div key={label} className="flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-2xl bg-[#E4E5E4]/60 border border-[#E4E5E4] min-w-0 max-w-full">
                 <svg className="w-4 h-4 text-accent-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   {isCalendar ? (
                     <>
@@ -158,7 +158,7 @@ function ServiceModal({ svc, onClose }) {
 
           {/* Benefits + Steps grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-7">
-            <div className="bg-[#f3f1f7] rounded-2xl p-4 sm:p-5">
+            <div className="bg-[#E4E5E4]/50 rounded-2xl p-4 sm:p-5 border border-[#E4E5E4]/60">
               <h4 className="font-display font-bold text-[0.88rem] text-ink-950 mb-4 flex items-center gap-2">
                 <svg className="w-4 h-4 text-teal-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12.5l4.5 4.5L19 7"/>
@@ -175,7 +175,7 @@ function ServiceModal({ svc, onClose }) {
               </ul>
             </div>
 
-            <div className="bg-[#f3f1f7] rounded-2xl p-4 sm:p-5">
+            <div className="bg-[#E4E5E4]/50 rounded-2xl p-4 sm:p-5 border border-[#E4E5E4]/60">
               <h4 className="font-display font-bold text-[0.88rem] text-ink-950 mb-4 flex items-center gap-2">
                 <svg className="w-4 h-4 text-accent-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 12l2 2 4-4M12 3l7 3v6c0 4.8-3 8-7 9-4-1-7-4.2-7-9V6z"/>
@@ -220,10 +220,10 @@ function ServiceModal({ svc, onClose }) {
             <h4 className="font-display font-bold text-[0.92rem] text-ink-950 mb-4">Frequently Asked Questions</h4>
             <div className="flex flex-col gap-2">
               {svc.faq.map((item, i) => (
-                <div key={i} className="border border-[#ece5db] rounded-2xl overflow-hidden">
+                <div key={i} className="border border-[#E4E5E4] rounded-2xl overflow-hidden">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-start justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-[#f9f7f4] transition-colors gap-3"
+                    className="w-full flex items-start justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-[#FBFDFD] transition-colors gap-3"
                     style={{ minHeight: '52px' }}
                   >
                     <span className="font-semibold text-[0.85rem] sm:text-[0.9rem] text-ink-950">{item.q}</span>
@@ -235,7 +235,7 @@ function ServiceModal({ svc, onClose }) {
                     </svg>
                   </button>
                   {openFaq === i && (
-                    <div className="px-4 sm:px-5 pb-4 pt-3 text-ink-700 text-[0.84rem] sm:text-[0.88rem] leading-relaxed border-t border-[#ece5db] bg-[#faf9f7]">
+                    <div className="px-4 sm:px-5 pb-4 pt-3 text-ink-700 text-[0.84rem] sm:text-[0.88rem] leading-relaxed border-t border-[#E4E5E4] bg-[#FBFDFD]">
                       {item.a}
                     </div>
                   )}
@@ -279,48 +279,161 @@ function ServiceModal({ svc, onClose }) {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
+// FEATURED 6 TREATMENTS FOR HOMEPAGE
+// ──────────────────────────────────────────────────────────────────────────────
+const FEATURED_TREATMENTS = [
+  {
+    id: 'general-dentistry',
+    title: 'General Dentistry',
+    desc: 'Comprehensive checkups, gentle teeth cleaning, oral screenings, and durable tooth fillings for lasting oral health.',
+    icon: (
+      <svg className="w-6 h-6 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2C8 2 5 5 5 9c0 3 2 6 3 9 1 3 2 4 4 4s3-1 4-4c1-3 3-6 3-9 0-4-3-7-7-7z" />
+        <path d="M9 10h6" />
+      </svg>
+    ),
+    matchId: 'cleaning',
+  },
+  {
+    id: 'root-canal',
+    title: 'Root Canal Treatment',
+    desc: 'Precision single-visit RCT to relieve pain, eliminate deep tooth infection, and preserve your natural tooth.',
+    icon: (
+      <svg className="w-6 h-6 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+    ),
+    matchId: 'rct',
+  },
+  {
+    id: 'dental-implants',
+    title: 'Dental Implants',
+    desc: 'Permanent, durable tooth replacements and high-strength crowns that restore complete chewing and aesthetic confidence.',
+    icon: (
+      <svg className="w-6 h-6 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="4" width="14" height="6" rx="2" />
+        <line x1="12" y1="10" x2="12" y2="20" />
+        <line x1="8" y1="14" x2="16" y2="14" />
+        <line x1="9" y1="18" x2="15" y2="18" />
+      </svg>
+    ),
+    matchId: 'crown-bridge',
+  },
+  {
+    id: 'teeth-whitening',
+    title: 'Teeth Whitening',
+    desc: 'Professional clinic-grade whitening to safely lift stubborn stains, brightening your smile by several natural shades.',
+    icon: (
+      <svg className="w-6 h-6 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" />
+      </svg>
+    ),
+    matchId: 'cleaning',
+  },
+  {
+    id: 'clear-aligners',
+    title: 'Clear Aligners',
+    desc: 'Custom-fit transparent orthodontic aligners designed to straighten teeth discreetly, comfortably, and wire-free.',
+    icon: (
+      <svg className="w-6 h-6 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+        <line x1="9" y1="9" x2="9.01" y2="9" />
+        <line x1="15" y1="9" x2="15.01" y2="9" />
+      </svg>
+    ),
+    matchId: 'braces',
+  },
+  {
+    id: 'smile-makeover',
+    title: 'Smile Makeover',
+    desc: 'Complete aesthetic transformations combining natural translucency veneers, Zirconia crowns, and gum contouring.',
+    icon: (
+      <svg className="w-6 h-6 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    ),
+    matchId: 'cosmetic',
+  },
+];
+
+// ──────────────────────────────────────────────────────────────────────────────
 // SERVICE TEASER — homepage
 // ──────────────────────────────────────────────────────────────────────────────
 export function ServiceTeaser({ setActivePage }) {
   const [headRef, headVisible] = useScrollReveal();
   const [selected, setSelected] = useState(null);
-  const TEASER = ALL_SERVICES.slice(0, 6);
+
+  const handleOpenTreatment = (treatment) => {
+    const found = ALL_SERVICES.find(s => s.id === treatment.matchId) || ALL_SERVICES[0];
+    setSelected(found);
+  };
 
   return (
-    <section id="services-preview" className="py-14 sm:py-24 bg-[#f3f1f7]">
+    <section id="treatments" className="py-16 sm:py-24 bg-[#F8FAFA]">
       {selected && <ServiceModal svc={selected} onClose={() => setSelected(null)} />}
 
-      <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+        
+        {/* Header */}
         <div
           ref={headRef}
-          className={`mb-8 sm:mb-12 transition-all duration-700 ${headVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className="text-center max-w-[680px] mx-auto mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-500/10 text-accent-600 text-xs font-bold tracking-[0.08em] uppercase mb-5">
-            <span className="w-2 h-2 rounded-full bg-accent-500" />
-            Specialised Care
+          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F1F8] border border-[#123b5d]/20 text-[#123b5d] text-xs font-bold tracking-[0.08em] uppercase mb-4 transition-all duration-500 ease-out ${headVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#123b5d]" />
+            OUR CLINICAL SERVICES
           </div>
-          <h2 className="font-display font-bold text-[clamp(1.6rem,3.2vw,2.6rem)] text-ink-950 mb-4">
-            Dental Care, Treatment By Treatment
+          <h2 className={`font-display font-bold text-[clamp(1.85rem,3.2vw,2.5rem)] text-[#03213B] leading-tight mb-3 transition-all duration-600 delay-100 ease-out ${headVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+            Complete Dental Care, All in One Place
           </h2>
-          <p className="text-ink-700 text-[0.95rem] sm:text-[1.04rem] max-w-[52ch]">
-            Tap any card for full clinical details, treatment steps, aftercare and patient FAQs.
+          <p className={`text-[#66737F] text-[0.98rem] sm:text-[1.05rem] leading-relaxed transition-all duration-600 delay-200 ease-out ${headVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+            From preventive checkups to advanced smile transformations, personalized care for every stage of your dental journey.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {TEASER.map((svc, i) => (
-            <ServiceCard key={svc.id} svc={svc} delay={i * 80} onClick={() => setSelected(svc)} />
+        {/* 6 Clean Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {FEATURED_TREATMENTS.map((item, i) => (
+            <div
+              key={item.id}
+              onClick={() => handleOpenTreatment(item)}
+              className={`bg-white rounded-2xl p-7 sm:p-8 border border-[#E5E8E8] shadow-[0_4px_20px_-6px_rgba(3,33,59,0.05)] hover:shadow-[0_14px_30px_-10px_rgba(3,33,59,0.1)] hover:-translate-y-1 hover:border-[#123b5d]/40 transition-all duration-300 ease-out flex flex-col justify-between cursor-pointer group active:scale-[0.99] ${
+                headVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+              }`}
+              style={{ transitionDelay: headVisible ? `${100 + (i % 3) * 100}ms` : '0ms' }}
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-[#E8F1F8] flex items-center justify-center mb-6 transition-transform duration-250 ease-out group-hover:scale-105">
+                  {item.icon}
+                </div>
+                <h3 className="font-display font-bold text-[1.15rem] text-[#03213B] mb-2 group-hover:text-[#123b5d] transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-[#66737F] text-[0.93rem] leading-relaxed mb-6">
+                  {item.desc}
+                </p>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 text-[#123b5d] text-sm font-bold pt-4 border-t border-[#E5E8E8]/70">
+                <span>Explore Treatment</span>
+                <span className="group-hover:translate-x-[3px] transition-transform duration-250 ease-out">→</span>
+              </div>
+            </div>
           ))}
         </div>
 
-        <div className="text-center mt-8 sm:mt-10">
+        {/* View All Button */}
+        <div className="text-center mt-10 sm:mt-14">
           <button
             onClick={() => { setActivePage('services'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="btn-shimmer inline-flex items-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-ink-950 text-white font-bold text-[0.9rem] sm:text-[0.97rem] shadow-[0_14px_30px_-14px_rgba(21,19,15,0.55)] hover:-translate-y-1 active:scale-[0.98] transition-all duration-200"
+            className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-[#03213B] text-[#03213B] hover:bg-[#03213B] hover:text-white font-bold text-[0.94rem] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
           >
-            View All 12 Services →
+            <span>View All 12 Clinical Services</span>
+            <span className="group-hover:translate-x-[3px] transition-transform duration-200">→</span>
           </button>
         </div>
+
       </div>
     </section>
   );
@@ -339,20 +452,19 @@ export function ServicesPage() {
   const grouped = (g) => ALL_SERVICES.filter(s => s.group === g);
 
   return (
-    <div className="pt-[68px] sm:pt-[76px]">
+    <div className="pt-[68px] sm:pt-[76px] bg-[#F8FAFA]">
       {selected && <ServiceModal svc={selected} onClose={() => setSelected(null)} />}
 
       {/* ── Page hero ── */}
-      <div className="bg-gradient-to-b from-[#fbeee1] to-[#fffdfb] py-12 sm:py-16 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-accent-400/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-6 relative">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-500/10 text-accent-600 text-xs font-bold tracking-[0.08em] uppercase mb-5">
-            <span className="w-2 h-2 rounded-full bg-accent-500" />
-            Specialised Care
+      <div className="bg-[#EEF1F1]/60 py-12 sm:py-16 relative overflow-hidden border-b border-[#E5E8E8]">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F1F8] border border-[#123b5d]/20 text-[#123b5d] text-xs font-bold tracking-[0.08em] uppercase mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#123b5d]" />
+            SPECIALISED CLINICAL CARE
           </div>
-          <h1 className="font-display font-bold text-[clamp(1.7rem,3.6vw,2.8rem)] text-ink-950 mb-4">Our 12 Services</h1>
-          <p className="text-ink-700 text-[0.95rem] sm:text-[1.05rem] max-w-[58ch] mb-8">
-            Complete oral care at one address on M.G. Road, Surajpur. Tap any card for full clinical details, treatment steps, aftercare and patient FAQs.
+          <h1 className="font-display font-bold text-[clamp(1.85rem,3.4vw,2.7rem)] text-[#03213B] mb-3">Our 12 Clinical Services</h1>
+          <p className="text-[#66737F] text-[0.98rem] sm:text-[1.05rem] max-w-[58ch] mb-8">
+            Complete oral care at one address on M.G. Road, Surajpur. Tap any card for full clinical details, treatment steps, aftercare, and patient FAQs.
           </p>
 
           <div className="flex flex-wrap gap-3">
@@ -362,9 +474,9 @@ export function ServicesPage() {
               { num: 'BDS', label: 'Qualified Doctor' },
               { num: '9AM–8PM', label: 'Daily Hours' },
             ].map(({ num, label }) => (
-              <div key={label} className="px-4 py-2.5 bg-white rounded-2xl shadow-card border border-[#ece5db] text-center">
-                <p className="font-display font-extrabold text-[0.95rem] sm:text-[1.1rem] text-ink-950">{num}</p>
-                <p className="text-[0.62rem] sm:text-[0.7rem] font-semibold text-ink-700 uppercase tracking-wide">{label}</p>
+              <div key={label} className="px-4 py-2.5 bg-white rounded-2xl shadow-sm border border-[#E5E8E8] text-center">
+                <p className="font-display font-extrabold text-[0.95rem] sm:text-[1.1rem] text-[#03213B]">{num}</p>
+                <p className="text-[0.62rem] sm:text-[0.7rem] font-semibold text-[#66737F] uppercase tracking-wide">{label}</p>
               </div>
             ))}
           </div>
@@ -372,11 +484,11 @@ export function ServicesPage() {
       </div>
 
       {/* ── Sticky filter tabs ── */}
-      <div className="sticky top-[76px] z-30 bg-white/95 backdrop-blur-md border-b border-[#ece5db] shadow-sm">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-6 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
+      <div className="sticky top-[76px] z-30 bg-white/95 backdrop-blur-md border-b border-[#E5E8E8] shadow-sm">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setActiveGroup(null)}
-            className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${!activeGroup ? 'bg-ink-950 text-white' : 'bg-[#f3f1f7] text-ink-700 hover:bg-[#ece5db]'}`}
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${!activeGroup ? 'bg-[#03213B] text-white' : 'bg-[#EEF1F1] text-[#66737F] hover:bg-[#E5E8E8]'}`}
           >
             All (12)
           </button>
@@ -384,7 +496,7 @@ export function ServicesPage() {
             <button
               key={g}
               onClick={() => setActiveGroup(activeGroup === g ? null : g)}
-              className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap ${activeGroup === g ? 'bg-ink-950 text-white' : 'bg-[#f3f1f7] text-ink-700 hover:bg-[#ece5db]'}`}
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap ${activeGroup === g ? 'bg-[#03213B] text-white' : 'bg-[#EEF1F1] text-[#66737F] hover:bg-[#E5E8E8]'}`}
             >
               {g} ({grouped(g).length})
             </button>

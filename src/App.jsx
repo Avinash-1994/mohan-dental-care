@@ -21,7 +21,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen font-body">
+    <div className="min-h-screen font-body pb-16 md:pb-0 bg-[#F8FAFA] animate-page-fade-in">
       <Header activePage={activePage} setActivePage={handleSetPage} />
 
       {/* ── HOME PAGE ─────────────────────────────────────────── */}
