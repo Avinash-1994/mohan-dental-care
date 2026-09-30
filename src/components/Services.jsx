@@ -33,37 +33,40 @@ function ServiceCard({ svc, delay = 0, onClick }) {
       <div
         {...tilt}
         onClick={onClick}
-        className="svc-card-3d bg-white border border-[#E4E5E4] border-t-4 border-t-accent-500 rounded-2xl p-5 sm:p-6 shadow-card h-full cursor-pointer group active:scale-[0.98] transition-transform"
+        className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-6px_rgba(3,43,83,0.06)] hover:shadow-[0_16px_35px_-10px_rgba(3,43,83,0.12)] hover:border-[#0284c7]/40 h-full cursor-pointer group active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        {/* Icon + badge row */}
-        <div className="flex items-start justify-between mb-4 gap-2">
-          <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] bg-gradient-to-br ${svc.color} flex items-center justify-center shadow-[0_6px_16px_-6px_rgba(91,79,224,0.4)] group-hover:scale-105 transition-transform duration-250 ease-out flex-shrink-0`}>
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 8c-4.6 0-8.2 2.6-9.4 6-.9 2.4-.2 4.7.7 7.1.9 2.5 1.1 5.2 1.7 7.9.5 2.1 1.2 4.9 2.6 4.9 1.3 0 1.8-2.6 2.3-4.9.4-1.9 1-3.1 2.1-3.1s1.7 1.2 2.1 3.1c.5 2.3 1 4.9 2.3 4.9 1.4 0 2.1-2.8 2.6-4.9.6-2.7.8-5.4 1.7-7.9.9-2.4 1.6-4.7.7-7.1-1.2-3.4-4.8-6-9.4-6z"/>
-            </svg>
+        <div>
+          {/* Icon + badge row */}
+          <div className="flex items-start justify-between mb-5 gap-2">
+            <div className="w-12 h-12 rounded-xl bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-250 ease-out flex-shrink-0">
+              <svg className="w-6 h-6 text-[#0284c7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2C8 2 5 5 5 9c0 3 2 6 3 9 1 3 2 4 4 4s3-1 4-4c1-3 3-6 3-9 0-4-3-7-7-7z"/>
+                <path d="M9 10h6"/>
+              </svg>
+            </div>
+            <span className="inline-block text-[0.65rem] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#e0f2fe] text-[#0284c7] border border-[#0284c7]/20 flex-shrink-0">
+              {svc.badge}
+            </span>
           </div>
-          <span className={`inline-block text-[0.6rem] font-bold uppercase tracking-wider px-2 py-1 rounded-full border flex-shrink-0 ${BADGE_COLORS[svc.badge] || 'bg-gray-50 text-gray-600 border-gray-200'}`}>
-            {svc.badge}
-          </span>
+
+          <h3 className="font-display font-bold text-[1.1rem] text-[#0f172a] mb-1 leading-snug group-hover:text-[#0284c7] transition-colors">{svc.title}</h3>
+          <p className="text-[#0284c7] text-xs font-semibold mb-3 leading-snug">{svc.hindi}</p>
+          <p className="text-[#475569] text-[0.91rem] leading-relaxed mb-5 line-clamp-3">{svc.shortDesc}</p>
         </div>
 
-        <h3 className="font-display font-bold text-[0.92rem] sm:text-[1rem] text-ink-950 mb-1 leading-snug">{svc.title}</h3>
-        <p className="text-accent-600 text-xs font-semibold mb-3 leading-snug">{svc.hindi}</p>
-        <p className="text-ink-700 text-[0.86rem] sm:text-[0.9rem] leading-relaxed mb-4 line-clamp-3">{svc.shortDesc}</p>
+        <div>
+          <div className="flex items-center gap-1.5 text-[#64748b] text-xs font-semibold mb-4 pt-3 border-t border-slate-100">
+            <svg className="w-4 h-4 text-[#0284c7] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>
+            </svg>
+            <span>{svc.duration}</span>
+          </div>
 
-        <div className="flex items-center gap-1.5 text-ink-700 text-xs font-semibold mb-4">
-          <svg className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>
-          </svg>
-          {svc.duration}
-        </div>
-
-        <div className="flex items-center gap-1.5 text-accent-600 text-xs font-bold transition-all">
-          <span>Tap for full details</span>
-          <svg className="w-3.5 h-3.5 group-hover:translate-x-[3px] transition-transform duration-250 ease-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
+          <div className="flex items-center justify-between text-[#032b53] text-xs font-bold transition-all group-hover:text-[#0284c7]">
+            <span>Tap for details</span>
+            <span className="group-hover:translate-x-[4px] transition-transform duration-250 ease-out text-sm">→</span>
+          </div>
         </div>
       </div>
     </div>

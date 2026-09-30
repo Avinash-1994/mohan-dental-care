@@ -155,52 +155,55 @@ export default function Header({ activePage, setActivePage }) {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#F8FAFA]/95 backdrop-blur-xl shadow-[0_4px_20px_-8px_rgba(3,33,59,0.08)] border-b border-[#E5E8E8]'
-            : 'bg-[#F8FAFA]/80 backdrop-blur-md border-b border-transparent'
+            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80'
+            : 'bg-white border-b border-slate-100'
         }`}
       >
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-[70px] sm:h-[76px] flex items-center justify-between gap-3 sm:gap-5">
-          {/* Brand */}
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 h-[72px] sm:h-[76px] flex items-center justify-between gap-3 sm:gap-5">
+          {/* Brand Logo */}
           <button onClick={() => handleNavClick('home', '#home')} className="flex items-center gap-2 group py-1">
             <img
-              src={getAssetUrl('images/logo.webp')}
+              src={getAssetUrl('images/logo.jpg')}
               alt="Mohan Dental Care"
-              className="h-10 sm:h-12 max-h-[48px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+              className="h-10 sm:h-12 max-h-[50px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.01]"
             />
           </button>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map(({ label, href, page }) => (
-              <button
-                key={label}
-                onClick={() => handleNavClick(page, href)}
-                className={`px-3.5 py-2 rounded-full text-[0.88rem] font-semibold transition-all duration-200 ${
-                  page && activePage === page
-                    ? 'text-[#03213B] bg-[#EEF1F1]'
-                    : 'text-[#66737F] hover:text-[#03213B] hover:bg-[#EEF1F1]/80'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+          <nav className="hidden lg:flex items-center gap-6">
+            {NAV_LINKS.map(({ label, href, page }) => {
+              const isActive = (page && activePage === page) || (label === 'Home' && activePage === 'home');
+              return (
+                <button
+                  key={label}
+                  onClick={() => handleNavClick(page, href)}
+                  className={`text-[0.92rem] font-semibold transition-all duration-200 py-1 relative ${
+                    isActive
+                      ? 'text-[#032b53] font-bold border-b-2 border-[#032b53]'
+                      : 'text-[#475569] hover:text-[#032b53]'
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </nav>
 
           {/* Actions */}
           <div className="flex items-center gap-3">
             <a
               href="tel:+918839557607"
-              className="hidden sm:flex items-center gap-2 text-[0.88rem] font-bold text-[#03213B] hover:text-[#123b5d] transition-colors"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 text-[#0f172a] text-[0.88rem] font-bold hover:bg-slate-50 transition-all"
             >
-              <svg className="w-4 h-4 text-[#123b5d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-4 h-4 text-[#0284c7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M7 3.5c-2 0-3.5 1.8-3.2 3.7C4.7 14.6 9.4 19.3 16.8 20.2c1.9.3 3.7-1.2 3.7-3.2v-1.8c0-.6-.4-1.1-1-1.3l-3.4-1.1c-.5-.2-1.1 0-1.4.4l-1 1.3c-2.3-1.1-4.1-2.9-5.2-5.2l1.3-1c.4-.3.6-.9.4-1.4L9.1 3.5c-.2-.6-.7-1-1.3-1H7z" />
               </svg>
-              <span>88395 57607</span>
+              <span>88395-57607</span>
             </a>
 
             <button
               onClick={() => handleNavClick(null, '#booking')}
-              className="btn-shimmer flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#123b5d] hover:bg-[#0c2a44] text-white text-[0.88rem] font-bold shadow-[0_8px_20px_-6px_rgba(18,59,93,0.45)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+              className="btn-shimmer flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#032b53] hover:bg-[#021f3d] text-white text-[0.88rem] font-bold shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3.5" y="5" width="17" height="15" rx="2.4" />
@@ -216,7 +219,7 @@ export default function Header({ activePage, setActivePage }) {
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open navigation menu"
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl hover:bg-[#E4E5E4] text-[#03213B] transition-colors"
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-100 text-[#0f172a] transition-colors"
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <line x1="4" y1="7" x2="20" y2="7" />
