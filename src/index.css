@@ -13,14 +13,14 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 68px;
-    -webkit-text-size-adjust: 100%;   /* prevent iOS font-size adjust */
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
 
   @media (min-width: 640px) {
     html {
-      scroll-padding-top: 80px;
+      scroll-padding-top: 76px;
     }
   }
 

@@ -487,23 +487,33 @@ export function ServicesPage() {
       </div>
 
       {/* ── Sticky filter tabs ── */}
-      <div className="sticky top-[76px] z-30 bg-white/95 backdrop-blur-md border-b border-[#E5E8E8] shadow-sm">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
-          <button
-            onClick={() => setActiveGroup(null)}
-            className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${!activeGroup ? 'bg-[#03213B] text-white' : 'bg-[#EEF1F1] text-[#66737F] hover:bg-[#E5E8E8]'}`}
-          >
-            All (12)
-          </button>
-          {GROUPS.map(g => (
+      <div className="sticky top-[72px] sm:top-[76px] z-30 bg-white/98 backdrop-blur-md border-b border-[#E5E8E8] shadow-[0_2px_10px_-4px_rgba(3,33,59,0.08)]">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-2.5 flex items-center gap-3">
+          {/* Filter label */}
+          <span className="hidden sm:flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[#66737F] flex-shrink-0 border-r border-[#E5E8E8] pr-3 mr-1">
+            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            Filter
+          </span>
+          {/* Scrollable tabs */}
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide flex-1">
             <button
-              key={g}
-              onClick={() => setActiveGroup(activeGroup === g ? null : g)}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap ${activeGroup === g ? 'bg-[#03213B] text-white' : 'bg-[#EEF1F1] text-[#66737F] hover:bg-[#E5E8E8]'}`}
+              onClick={() => setActiveGroup(null)}
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${!activeGroup ? 'bg-[#03213B] text-white shadow-sm' : 'bg-[#EEF1F1] text-[#66737F] hover:bg-[#E5E8E8] hover:text-[#03213B]'}`}
             >
-              {g} ({grouped(g).length})
+              All (12)
             </button>
-          ))}
+            {GROUPS.map(g => (
+              <button
+                key={g}
+                onClick={() => setActiveGroup(activeGroup === g ? null : g)}
+                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap ${activeGroup === g ? 'bg-[#03213B] text-white shadow-sm' : 'bg-[#EEF1F1] text-[#66737F] hover:bg-[#E5E8E8] hover:text-[#03213B]'}`}
+              >
+                {g} ({grouped(g).length})
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

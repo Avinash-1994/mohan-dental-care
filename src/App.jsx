@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import WhyUs from './components/WhyUs';
 import { ServiceTeaser, ServicesPage } from './components/Services';
 import CompareSlider from './components/CompareSlider';
+import SmileGallery from './components/SmileGallery';
 import { DoctorTeaser, AboutPage } from './components/Doctor';
 import Technology from './components/Technology';
 import TrustBand from './components/TrustBand';
@@ -31,6 +32,7 @@ export default function App() {
           <WhyUs />
           <ServiceTeaser setActivePage={handleSetPage} />
           <CompareSlider />
+          <SmileGallery />
           <DoctorTeaser setActivePage={handleSetPage} />
           <Technology />
           <TrustBand />

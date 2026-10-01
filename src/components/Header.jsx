@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { label: 'Treatments', href: '#treatments', page: 'services' },
   { label: 'Doctors', href: '#doctor', page: null },
   { label: 'Before & After', href: '#before-after', page: null },
+  { label: 'Gallery', href: '#gallery', page: null },
   { label: 'Reviews', href: '#reviews', page: null },
   { label: 'Contact', href: '#booking', page: null },
 ];
@@ -74,13 +75,12 @@ const MOBILE_NAV_ITEMS = [
   {
     label: 'Smile Gallery & Reviews',
     page: null,
-    href: '#reviews',
+    href: '#gallery',
     icon: (
       <svg className="w-[22px] h-[22px] text-[#026592] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-        <circle cx="9" cy="9" r="1" fill="currentColor" />
-        <circle cx="15" cy="9" r="1" fill="currentColor" />
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <polyline points="21 15 16 10 5 21" />
       </svg>
     ),
   },
@@ -153,7 +153,7 @@ export default function Header({ activePage, setActivePage }) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
             ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80'
             : 'bg-white border-b border-slate-100'

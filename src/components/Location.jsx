@@ -150,26 +150,16 @@ export default function Location() {
             ) : (
               /* View Mode: Map */
               <div className="rounded-2xl overflow-hidden aspect-[4/3] relative bg-[#EEF1F1]">
-                <svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <rect width="480" height="360" fill="#EEF1F1" />
-                  <g opacity="0.3">
-                    <path d="M0 0h480M0 40h480M0 80h480M0 120h480M0 160h480M0 200h480M0 240h480M0 280h480M0 320h480" stroke="#d5d7d5" strokeWidth="1" />
-                    <path d="M40 0v360M80 0v360M120 0v360M160 0v360M200 0v360M240 0v360M280 0v360M320 0v360M360 0v360M400 0v360M440 0v360" stroke="#d5d7d5" strokeWidth="1" />
-                  </g>
-                  <path d="M-20 280 C 120 240, 220 300, 340 190 S 480 60, 520 20" stroke="#133A5B" strokeWidth="16" strokeLinecap="round" fill="none" opacity="0.9" />
-                  <path d="M-20 280 C 120 240, 220 300, 340 190 S 480 60, 520 20" stroke="#123b5d" strokeWidth="2" strokeDasharray="10 8" fill="none" opacity="0.8" />
-                  <text x="140" y="248" fontFamily="Hind,sans-serif" fontSize="12" fill="#546576" fontWeight="700">M.G. Road</text>
-                  <rect x="298" y="130" width="84" height="46" rx="6" fill="#133A5B" />
-                  <text x="340" y="158" textAnchor="middle" fontFamily="Hind,sans-serif" fontSize="10" fill="#fff" fontWeight="600">Bajaj Showroom</text>
-                  <circle cx="265" cy="180" r="26" fill="#123b5d" opacity="0.2">
-                    <animate attributeName="r" values="18;34;18" dur="2.6s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.3;0;0.3" dur="2.6s" repeatCount="indefinite" />
-                  </circle>
-                  <path d="M265 152c-10 0-17 7.5-17 17 0 13 17 30 17 30s17-17 17-30c0-9.5-7-17-17-17z" fill="#123b5d" stroke="#fff" strokeWidth="2" />
-                  <circle cx="265" cy="169" r="6" fill="#fff" />
-                  <rect x="195" y="196" width="140" height="30" rx="15" fill="#03213B" />
-                  <text x="265" y="216" textAnchor="middle" fontFamily="Hind,sans-serif" fontWeight="700" fontSize="11" fill="#fff">Mohan Dental Care</text>
-                </svg>
+                <iframe
+                  title="Mohan Dental Care Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.592!2d82.5783!3d23.0854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a27e7aae9c08dd3%3A0x71a9b35e8fad5c3b!2sMohan%20Dental%20Care!5e0!3m2!1sen!2sin!4v1696000000000!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             )}
           </div>

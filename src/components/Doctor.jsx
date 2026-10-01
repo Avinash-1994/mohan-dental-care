@@ -89,9 +89,9 @@ export function DoctorTeaser({ setActivePage }) {
               visible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.98] translate-y-4'
             }`}>
               <img
-                src={getAssetUrl('images/office.png')}
-                alt="Dr. P. R. Rajwade at Mohan Dental Care Clinic Office"
-                className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-400 ease-out"
+                src={getAssetUrl('images/dr_p_r_rajwade.webp')}
+                alt="Dr. P. R. Rajwade, Lead Dental Surgeon at Mohan Dental Care Clinic"
+                className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-400 ease-out"
               />
               <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-[#03213B] via-[#03213B]/80 to-transparent">
                 <span className="text-[#BFA88F] text-xs font-bold uppercase tracking-wider block">Lead Dental Surgeon</span>
