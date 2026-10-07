@@ -103,7 +103,7 @@ export default function Location() {
           </div>
         </div>
 
-        {/* Right: Interactive Clinic Office Photo (office.png) & Map Switcher */}
+        {/* Right: Interactive Clinic Office Photo (office.webp) & Map Switcher */}
         <div ref={rightRef} className={`transition-all duration-700 ${rightVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
           <div className="rounded-3xl overflow-hidden border border-[#E5E8E8] shadow-[0_10px_35px_-10px_rgba(3,33,59,0.1)] bg-white p-3">
             {/* View Switcher Tabs */}
@@ -138,13 +138,13 @@ export default function Location() {
             {viewMode === 'office' ? (
               <div className="rounded-2xl overflow-hidden aspect-[4/3] relative bg-[#EEF1F1] group">
                 <img
-                  src={getAssetUrl('images/office.png')}
+                  src={getAssetUrl('images/office.webp')}
                   alt="Mohan Dental Care Clinic Office & Consultation Room"
                   className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                 />
                 <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-[#03213B] via-[#03213B]/80 to-transparent text-left">
                   <p className="text-white font-display font-bold text-sm">Consultation Office &amp; Reception</p>
-                  <p className="text-[#BFA88F] text-xs font-medium">Mohan Dental Care • Dr. P. R. Rajwade, BDS</p>
+                  <p className="text-[#BFA88F] text-xs font-medium">Mohan Dental Care • Dr. P. R. Rajwade</p>
                 </div>
               </div>
             ) : (

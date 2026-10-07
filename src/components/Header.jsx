@@ -6,7 +6,6 @@ const NAV_LINKS = [
   { label: 'About', href: '#about', page: 'about' },
   { label: 'Treatments', href: '#treatments', page: 'services' },
   { label: 'Doctors', href: '#doctor', page: null },
-  { label: 'Before & After', href: '#before-after', page: null },
   { label: 'Gallery', href: '#gallery', page: null },
   { label: 'Reviews', href: '#reviews', page: null },
   { label: 'Contact', href: '#booking', page: null },
@@ -153,17 +152,16 @@ export default function Header({ activePage, setActivePage }) {
   return (
     <>
       <header
-        className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80'
-            : 'bg-white border-b border-slate-100'
-        }`}
+        className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80'
+          : 'bg-white border-b border-slate-100'
+          }`}
       >
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 h-[72px] sm:h-[76px] flex items-center justify-between gap-3 sm:gap-5">
           {/* Brand Logo */}
           <button onClick={() => handleNavClick('home', '#home')} className="flex items-center gap-2 group py-1">
             <img
-              src={getAssetUrl('images/logo.jpg')}
+              src={getAssetUrl('images/logo.webp')}
               alt="Mohan Dental Care"
               className="h-10 sm:h-12 max-h-[50px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.01]"
             />
@@ -177,11 +175,10 @@ export default function Header({ activePage, setActivePage }) {
                 <button
                   key={label}
                   onClick={() => handleNavClick(page, href)}
-                  className={`text-[0.92rem] font-semibold transition-all duration-200 py-1 relative ${
-                    isActive
-                      ? 'text-[#032b53] font-bold border-b-2 border-[#032b53]'
-                      : 'text-[#475569] hover:text-[#032b53]'
-                  }`}
+                  className={`text-[0.92rem] font-semibold transition-all duration-200 py-1 relative ${isActive
+                    ? 'text-[#032b53] font-bold border-b-2 border-[#032b53]'
+                    : 'text-[#475569] hover:text-[#032b53]'
+                    }`}
                 >
                   {label}
                 </button>
@@ -211,8 +208,6 @@ export default function Header({ activePage, setActivePage }) {
                 <line x1="8" y1="3" x2="8" y2="7" />
                 <line x1="16" y1="3" x2="16" y2="7" />
               </svg>
-              <span className="hidden sm:inline">Book Appointment</span>
-              <span className="sm:hidden">Book</span>
             </button>
 
             {/* Mobile hamburger button */}
@@ -233,18 +228,16 @@ export default function Header({ activePage, setActivePage }) {
 
       {/* Mobile Drawer Backdrop */}
       <div
-        className={`fixed inset-0 bg-[#03213B]/60 backdrop-blur-[2px] z-[999] transition-opacity duration-300 lg:hidden ${
-          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 bg-[#03213B]/60 backdrop-blur-[2px] z-[999] transition-opacity duration-300 lg:hidden ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
         onClick={() => setMenuOpen(false)}
         aria-hidden="true"
       />
 
       {/* Mobile Drawer Panel */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-[80vw] max-w-[330px] bg-white z-[1000] shadow-2xl flex flex-col transition-transform duration-300 ease-out lg:hidden ${
-          menuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 bottom-0 w-[80vw] max-w-[330px] bg-white z-[1000] shadow-2xl flex flex-col transition-transform duration-300 ease-out lg:hidden ${menuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
@@ -285,11 +278,10 @@ export default function Header({ activePage, setActivePage }) {
                 <button
                   key={label}
                   onClick={() => handleNavClick(page, href)}
-                  className={`flex items-center gap-4 px-3 py-3 rounded-xl text-left transition-colors group ${
-                    isCurrent
-                      ? 'bg-[#EBF3F8] text-[#035388] font-semibold'
-                      : 'text-[#243342] hover:bg-[#F2F6F9] hover:text-[#03213B] font-medium'
-                  }`}
+                  className={`flex items-center gap-4 px-3 py-3 rounded-xl text-left transition-colors group ${isCurrent
+                    ? 'bg-[#EBF3F8] text-[#035388] font-semibold'
+                    : 'text-[#243342] hover:bg-[#F2F6F9] hover:text-[#03213B] font-medium'
+                    }`}
                 >
                   <span className="shrink-0 transition-transform duration-200 group-hover:scale-105">
                     {icon}
